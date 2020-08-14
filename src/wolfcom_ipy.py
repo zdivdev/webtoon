@@ -10,18 +10,17 @@ from System.Net import *
 debug = False
 image_ext = None
 
-def Download(url,filename):
+def Download(url,filename,referer):
     wc = WebClient()
     wc.Headers.Add ("User-Agent", 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36')
-    wc.Headers.Add ("Referer", 'https://wfwf105.com/list?toon=381&title=%B8%BE%C4%AB%C6%E4')
-    wc.DownloadFile(url, filename)
+    wc.Headers.Add ("Referer", referer)
+    try:
+        wc.DownloadFile(url, filename)
+    except:
+        print( url, "except" )
                 
-                
-if __name__ == "__main__":
-    url = "https://wfwf105.com/list?toon=381&title=%B8%BE%C4%AB%C6%E4"
-    baseUrl = "https://wfwf105.com"
-    baseDir = r"D:\Temp3"
-    doc = NSoup.NSoupClient.Connect(url).Get()
+def getWolfCom(comicsUrl,baseUrl,baseDir):
+    doc = NSoup.NSoupClient.Connect(comicsUrl).Get()
     '''
     with open("a.html", "w") as f:
         f.write(document.Html())
@@ -55,11 +54,15 @@ if __name__ == "__main__":
                 if( not img_url.startswith("http") ):
                     img_url = baseUrl + img_url
                 file_name = "img_%04d.jpg" % k
-                Download( img_url, os.path.join( sub_dir, file_name))
+                Download( img_url, os.path.join( sub_dir, file_name), comicsUrl)
                 print( img_url + " -> " + file_name )
                 k = k + 1
 
-
+if __name__ == "__main__":
+    url = "https://wfwf105.com/list?toon=381&title=%B8%BE%C4%AB%C6%E4"
+    baseUrl = "https://wfwf105.com"
+    baseDir = r"D:\Temp3"
+    getWolfCom(url,baseUrl,baseDir)
     
     
     
