@@ -1,6 +1,5 @@
-import os
 import clr
-clr.AddReferenceToFileAndPath("NSoup")
+clr.AddReferenceToFileAndPath(r"D:\Lib\dll\NSoup.dll")
 import NSoup
 
 import System
@@ -30,8 +29,8 @@ def getWolfCom(comicsUrl,baseUrl,baseDir):
         print(elems.Html());
         
     print(doc.Title)
-    new_dir = os.path.join(baseDir, doc.Title.replace(":","_"))
-    if not os.path.isdir(new_dir): os.mkdir(new_dir)
+    new_dir = Path.Combine(baseDir, doc.Title.replace(":","_"))
+    if not Directory.Exists(new_dir): Directory.CreateDirectory(new_dir)
     print(new_dir)
     
     for e in elems:
@@ -43,8 +42,8 @@ def getWolfCom(comicsUrl,baseUrl,baseDir):
         imgs = doc.Select("section.webtoon-body > div.group.image-view > img");
         print(doc.Title)
 
-        sub_dir = os.path.join(new_dir, doc.Title.replace(":","_"))
-        if not os.path.isdir(sub_dir): os.mkdir(sub_dir)
+        sub_dir = Path.Combine(new_dir, doc.Title.replace(":","_"))
+        if not Directory.Exists(sub_dir): Directory.CreateDirectory(sub_dir)
 
         k = 1;
         for img in imgs:
@@ -54,12 +53,12 @@ def getWolfCom(comicsUrl,baseUrl,baseDir):
                 if( not img_url.startswith("http") ):
                     img_url = baseUrl + img_url
                 file_name = "img_%04d.jpg" % k
-                Download( img_url, os.path.join( sub_dir, file_name), comicsUrl)
+                Download( img_url, Path.Combine(sub_dir, file_name), comicsUrl)
                 print( img_url + " -> " + file_name )
                 k = k + 1
 
 if __name__ == "__main__":
-    url = "https://wfwf105.com/list?toon=381&title=%B8%BE%C4%AB%C6%E4"
+    url = "https://wfwf105.com/list?toon=4526"
     baseUrl = "https://wfwf105.com"
     baseDir = r"D:\Temp3"
     getWolfCom(url,baseUrl,baseDir)
