@@ -3,6 +3,7 @@
 import clr
 clr.AddReference('System.Core')
 clr.AddReference('StdLib')
+clr.AddReference('ezPyWpfLib')
 #clr.AddReferenceToFileAndPath(r"C:\Lib\dll\StdLib.dll")
 clr.AddReferenceToFileAndPath(r"C:\Lib\dll\ezPyWpfLib.dll")
 import ezPyWpfLib as ez
@@ -58,23 +59,23 @@ def htmlAddImg( f, image_file ):
         f.write(b'<img src="data:image/png;base64,' + data + b'" /><br>\n')
 
 def imgToHtml(base_dir,row):
-    image_files = os.listdir(base_dir)
+    image_files = Directory.GetFiles(base_dir)
     html_file = base_dir + ".html"
     with open( html_file, "wb" ) as f:
         for image_file in image_files:
             print(image_file)
-            image_file_path = os.path.join(base_dir,image_file)
+            image_file_path = Path.Combine(base_dir,image_file)
             htmlAddImg( f, image_file_path )
             print(image_file_path )
         print( '->', html_file )
 
 def imgsToHtmls(args):
-    sub_dirs = os.listdir(args[0])
+    sub_dirs = Directory.GetDirectories(args[0])
     i = 1;
     setTableRow(args,"%d / %d" % (0, len(sub_dirs)))
     for sub_dir in sub_dirs:
-        sub_dir_path = os.path.join(args[0],sub_dir)
-        if os.path.isdir( sub_dir_path ):
+        sub_dir_path = Path.Combine(args[0],sub_dir)
+        if Directory.Exists( sub_dir_path ):
             setStatusText( sub_dir_path )
             imgToHtml( sub_dir_path, args )
         setTableRow(args,"%d / %d" % (i, len(sub_dirs)))
