@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 
+import clr
+clr.AddReference('System.Core')
+clr.AddReference('StdLib')
+#clr.AddReferenceToFileAndPath(r"C:\Lib\dll\StdLib.dll")
+clr.AddReferenceToFileAndPath(r"C:\Lib\dll\ezPyWpfLib.dll")
+import ezPyWpfLib as ez
 import os
 import codecs
 import base64
-
-import clr
-clr.AddReference('System.Core')
-clr.AddReferenceToFileAndPath(r"C:\Lib\dll\StdLib.dll")
-#clr.AddReferenceToFileAndPath(r"C:\Lib\dll\ezPyWpfLib.dll")
-import ezPyWpfLib as ez
 
 import System
 from System.IO import *
