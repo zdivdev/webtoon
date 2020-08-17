@@ -411,7 +411,7 @@ class WpfTreeView(WpfControl):
     def AddItem(self,label,parent=None):
         item = TreeViewItem()
         item.Header = label
-        item.IsExpanded = True
+        item.IsExpanded = False
         if parent: parent.Items.Add(item)
         else: self.root.Items.Add(item)
         return item
