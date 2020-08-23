@@ -1,3 +1,10 @@
+import clr
+clr.AddReference('StdLib')
+import System
+from System import *
+from System.IO import *
+from System.Net import *
+
 import os
 import zipfile
 import ezPyWpfLib as ez    
@@ -35,9 +42,10 @@ def onTreeView(event):
     else:
         path = tree.GetSelectedItemPath()   
         if os.path.isfile(path) and path.endswith("html"):
-            with open(path) as f:
-                web = ez.GetControl('web')
-                web.Load(f.read())   
+            web = ez.GetControl('web')
+            web.LoadFile(os.path.join(Directory.GetCurrentDirectory(),path))
+            #with open(path, "r") as f:
+            #    web.Load(f.read())    #.encode('cp949')
 
 def onCreated():
     ez.DumpControlTable()
